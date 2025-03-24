@@ -41,7 +41,7 @@ PhantomBuster’s Executive Committee seeks to proactively identify **at-risk cu
    - Calibrate model for better probability estimate.
    - Tune positive label threshold.
 4. **Evaluation**  
-   - **Best Model**: HistGradientBoosing (AUC-ROC: 0.76).  
+   - **Best Model**: TableVectorizer & HistGradientBoosing (AUC-ROC: 0.76).  
    - Key features: `DELINQUENCY_DAY_COUNT`, `PLAN_AGE`, `BILLING_PERIOD`.  
 
 ---
@@ -96,6 +96,9 @@ PhantomBuster’s Executive Committee seeks to proactively identify **at-risk cu
 ---
 
 ## 🛠️ Installation & Usage 
+
+`uv` can be installed using this [link](https://docs.astral.sh/uv/getting-started/installation/)
+
 1. Download project 
 ```bash
 git clone https://github.com/paulsteffen-lab/phantombuster-casestudy.git
