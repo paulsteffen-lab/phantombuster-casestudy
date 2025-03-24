@@ -18,9 +18,14 @@
 
 ## 🛠 Planned Features
 - [ ] Discuss with Business team concerning the threshold tuning 
-- [ ] Orchestrate training and inference workflows with dags to automatize the process
+- [ ] Test code using Pytest
+- [ ] Document code using mkdocs
+- [ ] Add pre-commit usage to simplify code versionning
+- [ ] Industrialize data access with features store
+- [ ] Orchestrate training and inference workflows with Airflow dags to automatize the process
 - [ ] Version data using DVC
 - [ ] Register models using MLFlow
+- [ ] Containerization using Docker
 
 ## 🎯 Future Vision
 - Get feedbacks from business team concerning applied retention strategies
