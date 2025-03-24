@@ -35,6 +35,7 @@ def plot_to_base64():
     buffer.seek(0)
     return base64.b64encode(buffer.read()).decode()
 
+
 def format_evaluation_data(y_true: pd.DataFrame, y_pred: pd.DataFrame) -> pd.DataFrame:
     """
     Merge the true and predicted churn labels and format the data for evaluation.
@@ -68,6 +69,7 @@ def format_evaluation_data(y_true: pd.DataFrame, y_pred: pd.DataFrame) -> pd.Dat
 
     return df
 
+
 def compute_group_metrics(df: pd.DataFrame) -> pd.DataFrame:
     """
     Compute group metrics based on the risk level.
@@ -84,7 +86,9 @@ def compute_group_metrics(df: pd.DataFrame) -> pd.DataFrame:
     grouped_df = df.groupby("RISK_LEVEL", observed=False)
     group_size_df = grouped_df.size().rename("Size").to_frame()
     group_accuracy_df = (
-        grouped_df.apply(lambda x: (x["CHURN"] == x["BINARIZED_Y_PRED"]).mean(), include_groups=False)
+        grouped_df.apply(
+            lambda x: (x["CHURN"] == x["BINARIZED_Y_PRED"]).mean(), include_groups=False
+        )
         .rename("Accuracy")
         .to_frame()
     )
@@ -93,6 +97,7 @@ def compute_group_metrics(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     return groups_df
+
 
 def get_clf_report(y_true: pd.Series, y_pred: pd.Series) -> pd.DataFrame:
     """
@@ -108,11 +113,15 @@ def get_clf_report(y_true: pd.Series, y_pred: pd.Series) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The classification report.
     """
-    clf_report = pd.DataFrame(
-        classification_report(
-            y_true, y_pred, target_names=["no-churn", "churn"], output_dict=True
+    clf_report = (
+        pd.DataFrame(
+            classification_report(
+                y_true, y_pred, target_names=["no-churn", "churn"], output_dict=True
+            )
         )
-    ).drop(columns="accuracy").T
+        .drop(columns="accuracy")
+        .T
+    )
 
     return clf_report
 
@@ -138,9 +147,7 @@ if __name__ == "__main__":
     # Generate ROC Curve
     plt.figure(figsize=(8, 6))
     RocCurveDisplay.from_predictions(
-        df["CHURN"], df["CHURN_PROBA"], 
-        plot_chance_level=True, 
-        despine=True
+        df["CHURN"], df["CHURN_PROBA"], plot_chance_level=True, despine=True
     )
     roc_img = plot_to_base64()
     plt.close()
@@ -148,9 +155,8 @@ if __name__ == "__main__":
     # Generate Precision-Recall Curve
     plt.figure(figsize=(8, 6))
     PrecisionRecallDisplay.from_predictions(
-        df["CHURN"], df["CHURN_PROBA"], 
-        plot_chance_level=True, 
-        despine=True)
+        df["CHURN"], df["CHURN_PROBA"], plot_chance_level=True, despine=True
+    )
     pr_img = plot_to_base64()
     plt.close()
 
