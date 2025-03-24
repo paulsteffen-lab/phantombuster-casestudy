@@ -98,7 +98,7 @@ PhantomBuster’s Executive Committee seeks to proactively identify **at-risk cu
 ## 🛠️ Installation & Usage 
 1. Download project 
 ```bash
-git clone https://github.com/yourusername/phantombuster-churn-prediction.git
+git clone https://github.com/paulsteffen-lab/phantombuster-casestudy.git
 ```
 
 2. Create virtual environment
