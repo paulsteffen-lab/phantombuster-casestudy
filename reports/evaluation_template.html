@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Model Evaluation Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .section { margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 30px; }
+        .metric-box { background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 15px 0; }
+        .plot { width: 45%; display: inline-block; margin: 10px; }
+        table { border-collapse: collapse; margin: 25px 0; width: 100%; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; }
+        tr:hover { background-color: #f5f5f5; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Churn Prediction Model Evaluation</h1>
+    <h4>Positive label threshold: {{ threshold }}</h4>
+
+    <div class="section">
+        <h2>📊 Churners distribution</h2>
+        <pre>{{ churners_distribution }}</pre>
+    </div>
+    
+    <div class="section">
+        <h2>📊 Key Metrics</h2>
+        <div class="metric-box">
+            <h3>F2 Score: <span style="color: #2ecc71;">{{ f2_score | round(3) }}</span></h3>
+            <p>Emphasizes recall 2x more than precision</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📝 Classification Report</h2>
+        <pre>{{ classification_report }}</pre>
+    </div>
+
+    <div class="section">
+        <h2>📈 Performance Curves</h2>
+        <div class="plot">
+            <img src="data:image/png;base64,{{ roc_curve }}" alt="ROC Curve">
+        </div>
+        <div class="plot">
+            <img src="data:image/png;base64,{{ pr_curve }}" alt="Precision-Recall Curve">
+        </div>
+    </div>
+</body>
+</html>
