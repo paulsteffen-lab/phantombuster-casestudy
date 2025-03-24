@@ -65,7 +65,7 @@ PhantomBuster’s Executive Committee seeks to proactively identify **at-risk cu
 │   ├── train.csv                     <- The subsample of the original dataset used to train the model.
 │   ├── test.csv                      <- The subsample of the original dataset used to evaluate the final model.
 │   ├── pred.csv                      <- The predictions obtained doing inference on the test set using the final model.
-│   └── optuna_study.db               <- SQLite databse which store the Optuna metadata concerning hyperparameters tuning.
+│   └── optuna_study.db               <- SQLite database which store the Optuna metadata concerning hyperparameters tuning.
 │
 ├── models                            <- Trained and serialized models.
 │
