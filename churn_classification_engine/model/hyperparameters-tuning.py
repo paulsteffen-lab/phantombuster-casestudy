@@ -8,6 +8,7 @@ from sklearn.model_selection import StratifiedKFold
 from skrub import ToCategorical, TableVectorizer
 from sklearn.metrics import make_scorer, fbeta_score
 
+from churn_classification_engine.model.utils import get_X_y
 from churn_classification_engine.config import settings, hyperparameters_search_area
 
 DATA_PATH = settings.data_dir / "train.csv"
@@ -68,12 +69,15 @@ def objective(trial: optuna.Trial, X: pd.DataFrame, y: pd.Series) -> float:
     )
 
     # Use F2 score as the scoring metric
-    f2_scorer = make_scorer(fbeta_score, beta=2)
+    f2_scorer = make_scorer(fbeta_score, beta=2, pos_label=1)
 
-    # Use cross-validation to evaluate the model
-    cv_scores = cross_val_score(
-        pipeline, X, y, cv=StratifiedKFold(n_splits=5), scoring=f2_scorer, n_jobs=5
-    )
+    try:
+        # Use cross-validation to evaluate the model
+        cv_scores = cross_val_score(
+            pipeline, X, y, cv=StratifiedKFold(n_splits=5), scoring=f2_scorer, n_jobs=5
+        )
+    except:
+        raise ValueError("Invalid hyperparameters")
 
     # Return the mean f2 score
     return cv_scores.mean()
@@ -85,18 +89,17 @@ if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, index_col="CUSTOMER_ID")
 
     # Split the data into X and y
-    X = df.drop(columns=["CHURN", "COUNTRY_CODE"])
-    y = df["CHURN"]
+    X, y = get_X_y(df)
 
     # Create and optimize the study
     study = optuna.create_study(
-        study_name="hyperparameters_tuning",
-        storage=HYPERPARAMETERS_DB_PATH,
-        direction="maximize",
-        load_if_exists=True,
-    )
+            study_name="hyperparameters_tuning",
+            storage=HYPERPARAMETERS_DB_PATH,
+            direction="maximize",
+            load_if_exists=True,
+        )
     study.optimize(
-        lambda trial: objective(trial, X, y), n_trials=100, show_progress_bar=True
+        lambda trial: objective(trial, X, y), n_trials=100, show_progress_bar=True, catch=(ValueError,)
     )
 
     # Log the best hyperparameters and the best score found

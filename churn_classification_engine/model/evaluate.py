@@ -140,7 +140,7 @@ if __name__ == "__main__":
     df = format_evaluation_data(y_true, y_pred)
 
     # Evaluate the model predictions
-    f2_score = fbeta_score(df["CHURN"], df["BINARIZED_Y_PRED"], beta=2, pos_label=1)
+    f2_score = fbeta_score(df["CHURN"], df["BINARIZED_Y_PRED"], beta=2)
     clf_report = get_clf_report(df["CHURN"], df["BINARIZED_Y_PRED"])
     groups_df = compute_group_metrics(df)
 

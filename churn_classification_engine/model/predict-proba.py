@@ -2,6 +2,7 @@ from loguru import logger
 import pandas as pd
 import joblib
 
+from churn_classification_engine.model.utils import get_X_y
 from churn_classification_engine.config import settings
 
 INPUT_PATH = settings.data_dir / "test.csv"
@@ -16,7 +17,7 @@ if __name__ == "__main__":
     df = pd.read_csv(INPUT_PATH, index_col="CUSTOMER_ID")
 
     # Split the data into X and y
-    X = df.drop(columns="CHURN")
+    X, _ = get_X_y(df)
 
     # Load the model
     model = joblib.load(MODEL_PATH)

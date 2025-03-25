@@ -7,6 +7,7 @@ from sklearn.calibration import CalibratedClassifierCV
 from sklearn.frozen import FrozenEstimator
 from skrub import ToCategorical, TableVectorizer
 
+from churn_classification_engine.model.utils import get_X_y
 from churn_classification_engine.config import settings
 
 DATA_PATH = settings.data_dir / "train.csv"
@@ -20,8 +21,7 @@ if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, index_col="CUSTOMER_ID")
 
     # Split the data into X and y
-    X = df.drop(columns=["CHURN", "COUNTRY_CODE"])
-    y = df["CHURN"]
+    X, y = get_X_y(df)
 
     # Instantiate the model
     pipeline = Pipeline(
@@ -37,11 +37,11 @@ if __name__ == "__main__":
                 "histgradientboostingclassifier",
                 HistGradientBoostingClassifier(
                     class_weight="balanced",
-                    learning_rate=0.01703384477761088,
-                    max_iter=195,
-                    max_depth=11,
-                    min_samples_leaf=50,
-                    max_bins=255,
+                    learning_rate=0.03239405091048051,
+                    max_iter=108,
+                    max_depth=5,
+                    min_samples_leaf=48,
+                    max_bins=155,
                     random_state=42,
                 ),
             ),
