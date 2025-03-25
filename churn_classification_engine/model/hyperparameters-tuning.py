@@ -34,7 +34,7 @@ def objective(trial: optuna.Trial, X: pd.DataFrame, y: pd.Series) -> float:
         float: The mean F2 score from cross-validation, negated for minimization.
     """
     # Define the hyperparameters to optimize
-    n_components = trial.suggest_int(**hyperparameters_search_area.n_components)
+    # n_components = trial.suggest_int(**hyperparameters_search_area.n_components)
 
     learning_rate = trial.suggest_float(**hyperparameters_search_area.learning_rate)
     max_iter = trial.suggest_int(**hyperparameters_search_area.max_iter)
@@ -48,7 +48,7 @@ def objective(trial: optuna.Trial, X: pd.DataFrame, y: pd.Series) -> float:
             (
                 "tablevectorizer",
                 TableVectorizer(
-                    high_cardinality=MinHashEncoder(n_components=n_components),
+                    # high_cardinality=MinHashEncoder(n_components=n_components),
                     low_cardinality=ToCategorical(),
                 ),
             ),
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, index_col="CUSTOMER_ID")
 
     # Split the data into X and y
-    X = df.drop(columns="CHURN")
+    X = df.drop(columns=["CHURN", "COUNTRY_CODE"])
     y = df["CHURN"]
 
     # Create and optimize the study

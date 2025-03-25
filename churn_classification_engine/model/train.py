@@ -20,7 +20,7 @@ if __name__ == "__main__":
     df = pd.read_csv(DATA_PATH, index_col="CUSTOMER_ID")
 
     # Split the data into X and y
-    X = df.drop(columns="CHURN")
+    X = df.drop(columns=["CHURN", "COUNTRY_CODE"])
     y = df["CHURN"]
 
     # Instantiate the model
@@ -29,7 +29,7 @@ if __name__ == "__main__":
             (
                 "tablevectorizer",
                 TableVectorizer(
-                    high_cardinality=MinHashEncoder(n_components=35),
+                    #high_cardinality=MinHashEncoder(n_components=35),
                     low_cardinality=ToCategorical(),
                 ),
             ),
@@ -37,11 +37,11 @@ if __name__ == "__main__":
                 "histgradientboostingclassifier",
                 HistGradientBoostingClassifier(
                     class_weight="balanced",
-                    learning_rate=0.024803608992165237,
-                    max_iter=146,
-                    max_depth=12,
-                    min_samples_leaf=14,
-                    max_bins=137,
+                    learning_rate=0.01703384477761088,
+                    max_iter=195,
+                    max_depth=11,
+                    min_samples_leaf=50,
+                    max_bins=255,
                     random_state=42,
                 ),
             ),
