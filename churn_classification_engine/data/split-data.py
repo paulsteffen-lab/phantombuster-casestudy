@@ -8,6 +8,7 @@ DATA_PATH = settings.data_dir / settings.data_filename
 TRAIN_PATH = settings.data_dir / "train.csv"
 TEST_PATH = settings.data_dir / "test.csv"
 TARGET = "CHURN"
+TEST_SIZE = .2
 RANDOM_STATE = 42
 
 if __name__ == "__main__":
@@ -17,7 +18,7 @@ if __name__ == "__main__":
 
     # First, split into Train (80%) and Temp (20%) [Validation + Test]
     train_df, test_df = train_test_split(
-        df, test_size=0.2, stratify=df[TARGET], random_state=RANDOM_STATE
+        df, test_size=TEST_SIZE, stratify=df[TARGET], random_state=RANDOM_STATE
     )
 
     # Save the CSV file
