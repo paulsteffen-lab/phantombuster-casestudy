@@ -5,7 +5,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.pipeline import Pipeline
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.model_selection import StratifiedKFold
-from skrub import ToCategorical, MinHashEncoder, TableVectorizer
+from skrub import ToCategorical, TableVectorizer
 from sklearn.metrics import make_scorer, fbeta_score
 
 from churn_classification_engine.config import settings, hyperparameters_search_area

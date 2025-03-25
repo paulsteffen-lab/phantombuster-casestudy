@@ -5,7 +5,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.calibration import CalibratedClassifierCV
 from sklearn.frozen import FrozenEstimator
-from skrub import ToCategorical, MinHashEncoder, TableVectorizer
+from skrub import ToCategorical, TableVectorizer
 
 from churn_classification_engine.config import settings
 
@@ -29,7 +29,7 @@ if __name__ == "__main__":
             (
                 "tablevectorizer",
                 TableVectorizer(
-                    #high_cardinality=MinHashEncoder(n_components=35),
+                    # high_cardinality=MinHashEncoder(n_components=35),
                     low_cardinality=ToCategorical(),
                 ),
             ),
